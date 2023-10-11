@@ -1,0 +1,191 @@
+
+    * {
+margin: 0;
+padding: 0;
+}
+
+body {
+margin: 20px auto;
+font-family: "Lato";
+font-weight: 300;
+background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+min-height: 100vh;
+}
+
+form {
+padding: 15px 25px;
+display: flex;
+gap: 10px;
+}
+
+input {
+font-family: "Lato";
+}
+
+a {
+color: #0000ff;
+text-decoration: none;
+}
+
+a:hover {
+text-decoration: underline;
+}
+
+#wrapper,
+#loginform {
+margin:  auto;
+padding-bottom: 25px;
+background: #eee;
+width: 600px;
+max-width: 100%;
+border: 2px solid #212121;
+border-radius: 4px;
+}
+
+#loginform {
+padding-top: 18px;
+}
+
+#loginform p {
+margin: 5px;
+}
+
+#chatbox {
+text-align: left;
+margin: 0 auto;
+margin-bottom: 25px;
+padding: 10px;
+background: #fff;
+height: 50%;
+width: 530px;
+border: 1px solid #a7a7a7;
+overflow: auto;
+border-radius: 4px;
+border-bottom: 4px solid #a7a7a7;
+}
+
+#usermsg {
+flex: 1;
+padding: 8px;
+border-radius: 4px;
+border: 1px solid #302b63;
+}
+
+#submitmsg {
+background: #302b63;
+border: 2px solid #0f0c29;
+color: white;
+padding: 4px 10px;
+font-weight: bold;
+border-radius: 4px;
+}
+
+.error {
+color: #ff0000;
+}
+
+#menu {
+padding: 15px 25px;
+display: flex;
+}
+
+#menu p.welcome {
+flex: 1;
+}
+
+a#exit {
+color: white;
+background: #c62828;
+padding: 4px 8px;
+border-radius: 4px;
+font-weight: bold;
+}
+
+.msgln {
+margin: 0 0 5px 0;
+}
+
+.msgln span.left-info {
+color: orangered;
+}
+
+.msgln span.chat-time {
+color: #666;
+font-size: 60%;
+vertical-align: super;
+}
+
+.msgln b.user-name, .msgln b.user-name-left {
+font-weight: bold;
+background: #546e7a;
+color: white;
+padding: 2px 4px;
+font-size: 90%;
+border-radius: 4px;
+margin: 0 5px 0 0;
+}
+
+.msgln b.user-name-left {
+background: orangered;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+button:focus,
+input:focus{
+  outline: none;
+  box-shadow: none;
+}
+a,
+a:hover{
+  text-decoration: none;
+}
+
+body{
+  font-family: 'Roboto', sans-serif;
+   background-color: #e0e3e8;
+  
+}
+
+
+/*------------*/
+.form-area {
+    background-color: #fff;
+    box-shadow: 0px 5px 10px rgba(90, 116, 148, 0.3);
+    padding: 40px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.form-area .form-inner {
+    width: 100%;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 15px 19px;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #475F7B;
+    background-color: #FFF;
+    border: 1px solid #DFE3E7;
+    border-radius: .267rem;
+    -webkit-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.form-control:focus {
+    color: #475F7B;
+    background-color: #FFF;
+    border-color: #5A8DEE;
+    outline: 0;
+    box-shadow: 0 3px 8px 0 rgb(0 0 0 / 10%);
+}
+.intl-tel-input,
+.iti{
+  width: 100%;
+}
+

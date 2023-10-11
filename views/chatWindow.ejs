@@ -1,0 +1,150 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Chat Window</title>
+  <meta name="description" content="Tuts+ Chat Application">
+
+
+  <link rel="stylesheet" href="chatWindow.css">
+
+
+
+</head>
+
+
+<body>
+  <div id="wrapper">
+    <div id="menu">
+      <p class="welcome">Welcome, <b>
+          <%= currentUser.name %>
+        </b></p>
+      <p class="logout"><a id="exit" href="/logout">Exit Chat</a></p>
+    </div>
+
+    <div id="chatbox">
+
+
+      <!-- <div class='msgln'><span class="chat-time">12:07 PM</span> <b class="user-name">John</b> Yes, I have been waiting
+        for you.<br></div>
+      <div class='msgln'><span class="chat-time">12:08 PM</span> <b class="user-name">Monty</b> Are we meeting at the
+        club today?<br></div>
+      <div class='msgln'><span class="chat-time">12:08 PM</span> <b class="user-name">John</b> Yes, I will be there at
+        5:00 PM.<br></div>
+      <div class='msgln'><span class="left-info">User <b class="user-name-left">John</b> has left the chat
+          session.</span><br></div>
+      <div class='msgln'><span class="chat-time">12:10 PM</span> <b class="user-name">Jane</b> Count me in as well.<br>
+      </div> -->
+    </div>
+
+    <form name="message" id="form">
+      <input name="usermsg" type="text" id="usermsg" autocomplete="off" />
+      <button name="submitmsg" type="submit" id="submitmsg">Send</button>
+    </form>
+  </div>
+
+
+  <!-- <script defer src="script.js"></script>  -->
+  <script src="/socket.io/socket.io.js"></script>
+
+
+  <script>
+    let userData = {
+      name: `<%= currentUser.name %>`,
+      id: `<%= currentUser._id %>`
+    }
+
+    const socket = io();
+
+    const form = document.getElementById("form");
+    const inputMessage = document.getElementById("usermsg");
+    const chatBox = document.getElementById("chatbox");
+
+    //current time
+    const now = new Date();
+
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const currentTime = `${hours}:${minutes}`
+
+
+
+
+    let chatUserPromise = new Promise((resolve) => {
+      socket.on("chat_message", (msg_response) => {
+        const chatUserMsg = msg_response.msg;
+        const chatUser = msg_response.userName;
+
+        const chatUserData = {
+          chatUserMsg,
+          chatUser,
+        };
+        console.log(chatUserData)
+        resolve(chatUserData);
+        if(chatUserMsg.length !== 0 && chatUser.length !== 0){
+          appendMessage(chatUserData.chatUserMsg, chatUserData.chatUser);
+        }
+       
+      });
+    });
+
+
+
+
+
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (inputMessage.value.trim() !== "") {
+        const message = inputMessage.value;
+        inputMessage.value = "";
+
+        socket.emit("chat_message", message);
+      } else {
+        alert("Please enter some text");
+      }
+  
+    });
+
+
+    // add message in the chat-box
+    async function appendMessage(chatUserMsg, chatUser) {
+      try {
+        // const data = await chatUserPromise;
+        // const chatUserMsg = data.chatUserMsg;
+        // const chatUser = data.chatUser;
+          
+
+        const item = document.createElement("div");
+        const messageText = ` <b class="user-name">${chatUser}</b> ${chatUserMsg}`;
+        console.log(chatUser)
+        console.log(chatUserMsg)
+        item.innerHTML = `<div class="msgln"><span class="chat-time">${currentTime}</span> ${messageText}<br></div>`;
+        chatBox.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    
+
+
+    socket.on("user_connected", (message) => {
+      sendUserDetailToServer();
+    })
+
+
+    function sendUserDetailToServer() {
+
+      socket.emit("user_detail", userData);
+    }
+
+
+
+  </script>
+
+</body>
+
+</html>
