@@ -40,12 +40,14 @@ app.use(
 
 //User schema
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema(
+    {
     name: String,
     email: String,
     password: String,
-
-})
+},
+{timestamps:true}
+)
 
 // User Model
 
@@ -57,7 +59,7 @@ function checkIfLoggedIn(req, res, next) {
     if (req.session && req.session.user) {
         console.log(req.session.user);
         next();
-      // If the user is logged in, redirect to a different page (e.g., profile page)
+      // If the user is logged in, redirect to a chat page
      
       
     }else{
