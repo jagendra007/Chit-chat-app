@@ -1,6 +1,6 @@
 const express = require("express");
 const UserData = require("../models/user");
-
+const checkIfLoggedIn = require("../middleware/user")
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -36,20 +36,7 @@ router.post("/signup", async (req, res) => {
 
 });
 
-// Middleware function to check if the user is already logged in
-function checkIfLoggedIn(req, res, next) {
-    if (req.session && req.session.user) {
-        console.log(req.session.user);
-        next();
-      // If the user is logged in, redirect to a chat page
-     
-      
-    }else{
-      res.redirect("/login"); 
-    }
-    
-  
-  }
+
 
 router.get("/login", checkIfLoggedIn, (req, res) => {
     try {
@@ -57,8 +44,7 @@ router.get("/login", checkIfLoggedIn, (req, res) => {
             res.redirect("/chat")
             console.log(req.session);
         } else {
-            // req.session.destroy;
-            // console.log(req.session.user.name);
+         
             res.redirect("/");
         }
     } catch (error) {
@@ -97,10 +83,10 @@ router.post("/login", async (req, res) => {
 
         req.session.user = dbUser;
 
-        res.redirect("/login")
+        res.redirect("/login");
     } else {
-        res.redirect("/")
-        console.log("User Not Found  ")
+        res.redirect("/");
+        console.log("User Not Found  ");
     }
 
 
