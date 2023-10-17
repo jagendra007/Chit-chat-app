@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const http  = require("http");
 const ejs = require("ejs");
-const dbconnect = require("./config/database")
+const dbconnect = require("./config/database").then;
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const server = http.createServer(app)
@@ -11,11 +11,11 @@ const userRouter = require("./routes/user");
 const createServer = require("./socket/socketio");
 require('dotenv').config();
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 createServer(server);
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }))
 
 
 app.use(

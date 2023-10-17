@@ -1,29 +1,21 @@
 const express = require("express");
-const UserData = require("../models/user");
-const checkIfLoggedIn = require("../middleware/user")
 const router = express.Router();
-const {handleUserLogin,handleUserSignUP, handleChatWindow,handleUserLoggedIn,handleChatWindowView,handleUserMessageInput, handleUserLogout} = require("../controllers/user")
+const { handleChatWindow, handleUserSignUP, handleUserLoggedIn, handleChatWindowView, handleUserMessageInput, handleUserLogin, handleUserLogout } = require("../controllers/user");
+const checkIfLoggedIn = require("../middleware/user");
 
-
-
-
+// Define routes
 router.get("/", handleChatWindow);
-
-
 router.post("/signup", handleUserSignUP);
-
-router.get("/login", checkIfLoggedIn, handleUserLoggedIn )
-router.get("/chat", handleChatWindowView )
-router.post("/chat",handleUserMessageInput)
-
-router.post("/login",handleUserLogin)
-
-
+router.route("/login")
+  .get(checkIfLoggedIn, handleUserLoggedIn)
+  .post(handleUserLogin);
+router.get("/chat", handleChatWindowView);
+router.post("/chat", handleUserMessageInput);
 router.get("/logout", handleUserLogout);
 
 // Catch-all route for undefined routes
 router.use((req, res) => {
-    res.status(404).render('404'); // Assuming you have a '404.ejs' template for the 404 page
+  res.status(404).render('404'); 
 });
 
 module.exports = router;
